@@ -1,5 +1,6 @@
 import sys
 from PyQt5.QtWidgets import *
+from PyQt5.QtGui import QPixmap, QFont
 import sqlite3
 
 connection = sqlite3.connect('employess.db')
@@ -66,7 +67,11 @@ class AddEmployee(QWidget):
         self.layouts()
 
     def mainDesign(self):
-        pass
+        self.title = QLabel("Add Person")
+        self.title.setStyleSheet('font-size: 24pt; font-family: Arial Bold; background-color:red;')
+        self.imgAdd = QLabel()
+        self.imgAdd.setPixmap(QPixmap("icons/person.png"))
+
 
     def layouts(self):
         # Main Layout #
@@ -76,6 +81,11 @@ class AddEmployee(QWidget):
         # child layout #
         self.mainLayout.addLayout(self.topLayout)
         self.mainLayout.addLayout(self.bottomLayout)
+        # adding Widgets
+        self.topLayout.addStretch()
+        self.topLayout.addWidget(self.title)
+        self.topLayout.addWidget(self.imgAdd)
+        self.topLayout.addStretch()
         # setting main layout #
         self.setLayout(self.mainLayout)
 
