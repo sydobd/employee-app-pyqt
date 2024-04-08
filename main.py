@@ -67,10 +67,29 @@ class AddEmployee(QWidget):
         self.layouts()
 
     def mainDesign(self):
+        # top widget #
         self.title = QLabel("Add Person")
-        self.title.setStyleSheet('font-size: 24pt; font-family: Arial Bold; background-color:red;')
+        self.title.setStyleSheet('font-size: 24pt; font-family: Arial Bold;')
         self.imgAdd = QLabel()
         self.imgAdd.setPixmap(QPixmap("icons/person.png"))
+        # bottom widget #
+        self.nameLbl = QLabel("Name :")
+        self.nameEntry = QLineEdit()
+        self.nameEntry.setPlaceholderText("Enter Employee Name")
+        self.surnameLbl = QLabel("Surname :")
+        self.surnameEntry = QLineEdit()
+        self.surnameEntry.setPlaceholderText("Enter Employee surname")
+        self.phoneLbl = QLabel("Phone :")
+        self.phoneEntry = QLineEdit()
+        self.phoneEntry.setPlaceholderText("Enter Employee Phone Number")
+        self.emailLbl = QLabel("Email :")
+        self.emailEntry = QLineEdit()
+        self.emailEntry.setPlaceholderText("Enter Employee Email")
+        self.imgLbl = QLabel("Picture: ")
+        self.imgButton = QPushButton("Browse")
+        self.addressLbl = QLabel("Address: ")
+        self.addressEditor = QTextEdit()
+        self.addButton = QPushButton("Update")
 
 
     def layouts(self):
@@ -86,6 +105,14 @@ class AddEmployee(QWidget):
         self.topLayout.addWidget(self.title)
         self.topLayout.addWidget(self.imgAdd)
         self.topLayout.addStretch()
+        self.topLayout.setContentsMargins(110, 20, 10, 30) # left, top, right, bottom
+        self.bottomLayout.addRow(self.nameLbl, self.nameEntry)
+        self.bottomLayout.addRow(self.surnameLbl, self.surnameEntry)
+        self.bottomLayout.addRow(self.phoneLbl, self.phoneEntry)
+        self.bottomLayout.addRow(self.emailLbl, self.emailEntry)
+        self.bottomLayout.addRow(self.imgLbl, self.imgButton)
+        self.bottomLayout.addRow(self.addressLbl, self.addressEditor)
+        self.bottomLayout.addRow("", self.addButton)
         # setting main layout #
         self.setLayout(self.mainLayout)
 
