@@ -6,8 +6,6 @@ connection = sqlite3.connect('employess.db')
 cursor = connection .cursor()
 
 
-
-
 class Window(QWidget):
     def __init__(self):
         super().__init__()
@@ -64,7 +62,23 @@ class AddEmployee(QWidget):
         self.show()
 
     def UI(self):
+        self.mainDesign()
+        self.layouts()
+
+    def mainDesign(self):
         pass
+
+    def layouts(self):
+        # Main Layout #
+        self.mainLayout = QVBoxLayout()
+        self.topLayout = QVBoxLayout()
+        self.bottomLayout = QFormLayout()
+        # child layout #
+        self.mainLayout.addLayout(self.topLayout)
+        self.mainLayout.addLayout(self.bottomLayout)
+        # setting main layout #
+        self.setLayout(self.mainLayout)
+
 
 
 
