@@ -1,5 +1,11 @@
 import sys
 from PyQt5.QtWidgets import *
+import sqlite3
+
+connection = sqlite3.connect('employess.db')
+cursor = connection .cursor()
+
+
 
 
 class Window(QWidget):
@@ -18,6 +24,7 @@ class Window(QWidget):
     def mainDesign(self):
         self.employeeList = QListWidget()
         self.btnNew = QPushButton("New")
+        self.btnNew.clicked.connect(self.addEmployee)
         self.btnUpdate = QPushButton("Update")
         self.btnDelete = QPushButton("Delete")
 
@@ -42,6 +49,22 @@ class Window(QWidget):
 
         # Setting layout #
         self.setLayout(self.mainLayout)
+
+    def addEmployee(self):
+        self.newEmployee = AddEmployee()
+        self.close()
+
+
+class AddEmployee(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Add Employee")
+        self.setGeometry(450, 150, 350, 600)
+        self.UI()
+        self.show()
+
+    def UI(self):
+        pass
 
 
 
