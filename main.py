@@ -21,6 +21,7 @@ class Main(QWidget):
         self.mainDesign()
         self.layouts()
         self.getEmployees()
+        self.displayFirstRecord()
 
     def mainDesign(self):
         self.employeeList = QListWidget()
@@ -60,7 +61,24 @@ class Main(QWidget):
         employees = cursor.execute(query).fetchall()
         for employee in employees:
             self.employeeList.addItem(str(employee[0]) + "-" + employee[1] + " " + employee[2] )
-            # print(employee)
+
+    def displayFirstRecord(self):
+        query = "SELECT * FROM employees ORDER BY ROWID ASC LIMIT 1"
+        employee = cursor.execute(query).fetchone()
+        img = QLabel()
+        img.setPixmap(QPixmap("images/" + employee[5]))
+        name = QLabel(employee[1])
+        surname = QLabel(employee[2])
+        phone = QLabel(employee[3])
+        email = QLabel(employee[4])
+        address = QLabel(employee[6])
+        self.leftLayout.setVerticalSpacing(20) #20px between rows
+        self.leftLayout.addRow("", img)
+        self.leftLayout.addRow("Name: ", name)
+        self.leftLayout.addRow("Surname :", surname)
+        self.leftLayout.addRow("Phone :", phone)
+        self.leftLayout.addRow("Email :", email)
+        self.leftLayout.addRow("Address:", address)
 
 
 class AddEmployee(QWidget):
