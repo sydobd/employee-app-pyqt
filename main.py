@@ -8,7 +8,7 @@ connection = sqlite3.connect('employess.db')
 cursor = connection .cursor()
 defaultImg = "person.png"
 
-class Window(QWidget):
+class Main(QWidget):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("My Employee")
@@ -66,6 +66,10 @@ class AddEmployee(QWidget):
     def UI(self):
         self.mainDesign()
         self.layouts()
+
+    def closeEvent(self, event):
+        self.main = Main()
+
 
     def mainDesign(self):
         # top widget #
@@ -148,6 +152,7 @@ class AddEmployee(QWidget):
                 connection.commit()
                 QMessageBox.information(self, "Success", "Person has been added")
                 self.close()
+                self.main = Main()
 
             except:
                 QMessageBox.information(self, "Warning", "Person has not been added")
@@ -157,7 +162,7 @@ class AddEmployee(QWidget):
 
 def main():
     App = QApplication(sys.argv)
-    window = Window()
+    window = Main()
     sys.exit(App.exec_())
 
 
