@@ -25,6 +25,7 @@ class Main(QWidget):
 
     def mainDesign(self):
         self.employeeList = QListWidget()
+        self.employeeList.itemClicked.connect(self.singleClick)
         self.btnNew = QPushButton("New")
         self.btnNew.clicked.connect(self.addEmployee)
         self.btnUpdate = QPushButton("Update")
@@ -80,6 +81,30 @@ class Main(QWidget):
         self.leftLayout.addRow("Email :", email)
         self.leftLayout.addRow("Address:", address)
 
+    def singleClick(self):
+        for i in reversed(range(self.leftLayout.count())):
+            widget = self.leftLayout.takeAt(i).widget()
+            if widget is not None:
+                widget.deleteLater()
+
+        employee = self.employeeList.currentItem().text()
+        id = employee.split("-")[0]
+        query = ("SELECT * FROM employees WHERE id=?")
+        person = cursor.execute(query, (id,)).fetchone()  # single item tuple=(1,)
+        img = QLabel()
+        img.setPixmap(QPixmap("images/" + person[5]))
+        name = QLabel(person[1])
+        surname = QLabel(person[2])
+        phone = QLabel(person[3])
+        email = QLabel(person[4])
+        address = QLabel(person[6])
+        self.leftLayout.setVerticalSpacing(20)
+        self.leftLayout.addRow("", img)
+        self.leftLayout.addRow("Name: ", name)
+        self.leftLayout.addRow("Surname :", surname)
+        self.leftLayout.addRow("Phone :", phone)
+        self.leftLayout.addRow("Email :", email)
+        self.leftLayout.addRow("Address:", address)
 
 class AddEmployee(QWidget):
     def __init__(self):
